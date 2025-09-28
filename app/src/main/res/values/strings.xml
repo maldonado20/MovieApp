@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MovieApp</string>
+    <string name="poster_cd">Póster de película</string>
+    <string name="popular">Populares</string>
+    <string name="newest">Más nuevas</string>
+    <string name="attribution">This product uses the TMDB API but is not endorsed or certified by TMDB.</string>
+</resources>
