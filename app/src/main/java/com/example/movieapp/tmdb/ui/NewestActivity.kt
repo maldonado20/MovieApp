@@ -8,9 +8,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.movieapp.data.Movie
 import com.example.movieapp.databinding.ActivityNewestBinding
-import com.tuapp.tmdb.data.ResultState
+import com.example.movieapp.data.ResultState
+
 import com.tuapp.tmdb.ui.MovieAdapter
 import kotlinx.coroutines.launch
 
@@ -42,11 +42,17 @@ class NewestActivity : ComponentActivity() {
                         is ResultState.Loading -> b.swipeRefresh.isRefreshing = true
                         is ResultState.Success<*> -> {
                             b.swipeRefresh.isRefreshing = false
-                            adapter.submit(st.data as List<Movie>)
+                            val movies = st.data as List<*>
+                            val movieList = movies?.filterIsInstance<com.example.movieapp.data.Movie>()
+                            if (movieList != null){
+                                adapter.submit(movieList)
+                            }
                         }
                         is ResultState.Error -> {
                             b.swipeRefresh.isRefreshing = false
                             Toast.makeText(this@NewestActivity, st.message, Toast.LENGTH_LONG).show()
+                        }else -> {
+
                         }
                     }
                 }

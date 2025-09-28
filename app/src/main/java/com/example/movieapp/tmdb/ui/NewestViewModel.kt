@@ -13,8 +13,8 @@ class NewestViewModel : ViewModel() {
 
     private val repo = MovieRepository() // si luego usas Hilt, lo inyectamos
 
-    private val _state = MutableStateFlow<ResultState<List<Movie>>>(ResultState.Loading)
-    val state: StateFlow<ResultState<List<Movie>>> = _state
+    private val _state = MutableStateFlow<ResultState<List<com.example.movieapp.data.Movie>>>(ResultState.Idle)
+    val state: StateFlow<ResultState<List<com.example.movieapp.data.Movie>>> = _state
 
     fun load() {
         _state.value = ResultState.Loading
