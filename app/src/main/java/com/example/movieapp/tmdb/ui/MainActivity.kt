@@ -24,18 +24,12 @@ class MainActivity : ComponentActivity() {
         b = ActivityMainBinding.inflate(layoutInflater)
         setContentView(b.root)
 
-        // RecyclerView básico
         b.rvMovies.layoutManager = LinearLayoutManager(this)
         b.rvMovies.adapter = adapter
 
-        // Pull-to-refresh → recarga
         b.swipeRefresh.setOnRefreshListener { vm.load() }
 
-
-        // Observa estado
         observeState()
-
-        // Carga inicial
         vm.load()
     }
 
@@ -44,9 +38,7 @@ class MainActivity : ComponentActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.state.collect { st ->
                     when (st) {
-                        is ResultState.Loading -> {
-                            b.swipeRefresh.isRefreshing = true
-                        }
+                        is ResultState.Loading -> b.swipeRefresh.isRefreshing = true
                         is ResultState.Success -> {
                             b.swipeRefresh.isRefreshing = false
                             adapter.submit(st.data)
